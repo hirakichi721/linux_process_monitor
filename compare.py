@@ -23,12 +23,14 @@ for fp in sys.argv[1:]:
   data.append(dataA)
 
 allkeys = []
+# DELIM is for Excel split(command sometimes includes comma(,))
+DELIM="#"
 for dic in data:
   allkeys.extend(dic.keys())
 uniqkeys = sorted(list(set(allkeys)))
 
 for key in uniqkeys:
-  outputline = key
+  outputline = key + DELIM
   for i in range(0,len(data)):
     if key in data[i].keys():
       outputline = outputline + "," + "o"
