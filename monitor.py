@@ -3,12 +3,14 @@
 import subprocess
 import os
 import sys
+from datetime import datetime as dt
 
 if len(sys.argv)!=2:
   print("Usage: outputFilePath")
   sys.exit(0)
-#PROCESS_COUNT_FILE = "process_count.csv"
+
 PROCESS_COUNT_FILE = sys.argv[1]
+COUNT_DATE = PROCESS_COUNT_FILE + ".date"
 # Proceess includes below are summerized as one process.(To exclude too many output.)
 SPECIAL_PROCESSES = ["/usr/sbin/zabbix_proxy","/usr/sbin/zabbix_agentd"]
 
@@ -57,3 +59,7 @@ with open(PROCESS_COUNT_FILE,"w") as f:
   for key in sorted(data.keys()):
     f.write(",".join([key,str(data[key])]))
     f.write("\n")
+
+with open(COUNT_DATE,"a") as f:
+  f.write(dt.now().strftime("%Y:%m:%d %H:%M:%S"))
+  f.write("\n")
